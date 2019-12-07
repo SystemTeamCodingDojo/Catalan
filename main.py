@@ -1,4 +1,5 @@
 from file_io_tool import read_lists_from_file, write_list_to_file, char_list_to_int_list
+import random
 
 
 def is_queue_correct(queue):
@@ -24,12 +25,43 @@ def is_queue_correct(queue):
     return True
 
 
-def main():
-    lots_of_queue = read_lists_from_file("input_ex1.txt")
-    results = []
-    for one_queue in lots_of_queue:
-        results.append(is_queue_correct(list(map(int,one_queue))))
-    write_list_to_file("output_ex1.txt", results)
+def generate_queue(n):
+
+    if type(n) is not int or n < 0:
+        return None
+
+    queue = []
+    nr_of_0s = 0
+    nr_of_1s = 0
+
+    def add(element):
+        nonlocal nr_of_0s
+        nonlocal nr_of_1s
+        nonlocal queue
+        queue.append(element)
+        if 0 == element :
+            nr_of_0s += 1
+        else:
+            nr_of_1s += 1
+
+    random.seed()
+    while nr_of_0s + nr_of_1s < 2*n:
+        if nr_of_0s == nr_of_1s:
+            add(0)
+        elif nr_of_0s == n:
+            add(1)
+        else:
+            if random.choice([0, 1]) == 0:
+                add(0)
+            else:
+                add(1)
     
+    return queue
+
+
+def main():
+    return
+    
+
 if __name__ == "__main__":
     main()
