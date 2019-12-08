@@ -3,7 +3,6 @@ import random
 
 
 def is_queue_correct(queue):
-
     if len(queue) % 2 != 0:
         return False
     else:
@@ -26,7 +25,6 @@ def is_queue_correct(queue):
 
 
 def generate_queue(n):
-
     if type(n) is not int or n < 0:
         return None
 
@@ -59,7 +57,31 @@ def generate_queue(n):
     return queue
 
 
+def draw_island(island):
+    picture = []
+    level = 0
+    space_cnt = 0
+    for c in island:
+        if '\\' == c :
+            level -= 1
+        if level > len(picture) - 1 :
+            picture.append('')
+        picture[level] += ((space_cnt - len(picture[level])) * ' ') + c
+        if '/' == c:
+            level += 1
+        space_cnt += 1
+    
+    picture.reverse()
+    for line in picture:
+        print(line)
+
 def main():
+    draw_island(['/','/','\\','/','/','\\','\\','\\','/','\\'])
+    list_of_islands = read_lists_from_file("input_ex3.txt")
+    for island in list_of_islands:
+        draw_island(island)
+        print('')
+
     return
     
 
