@@ -74,16 +74,32 @@ def draw_island(island):
     picture.reverse()
     for line in picture:
         print(line)
+   
+
+"""
+Some explanation/hint for the solution
+Lets name the number of islands C_0 if it is related to 0 unit wide island, C_1 for 1 unit wide, C_n the number of n unit wide, and so on...
+On representative islend for C_5 can look like this:
+
+                    /\ 
+                   /  \  /\ 
+                  /    \/  \ 
+We can cut this here --><-- where it touches the sea level
+So if we group all the 5 unit wide islands according to where the can be cut smaller islands, then
+C_5 = sum(C_i * C_(4-i)) where i goes  from 0 to 4
+"""
+def number_of_islands(n):
+    if 0 == n:
+        return 1
+    sum = 0
+    for i in range (n):
+        sum += number_of_islands(i) * number_of_islands(n-1-i)
+    return sum
+
 
 def main():
-    draw_island(['/','/','\\','/','/','\\','\\','\\','/','\\'])
-    list_of_islands = read_lists_from_file("input_ex3.txt")
-    for island in list_of_islands:
-        draw_island(island)
-        print('')
-
-    return
-    
+    for n in range(100):
+        print(number_of_islands(n)) 
 
 if __name__ == "__main__":
     main()
